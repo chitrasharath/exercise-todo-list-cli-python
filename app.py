@@ -1,3 +1,5 @@
+import csv
+
 todos = []
 stop = False
 
@@ -7,23 +9,41 @@ def get_todos():
 
 def add_one_task(title):
     # your code here
+    global todos
+    todos.append(title)
     pass
 
 def print_list():
     global todos
+    for i in range(len(todos)):
+        print(str(i+1) + ".  " + todos[i])
     pass
 
 def delete_task(number_to_delete):
     # your code here
+    global todos
+    if (int(number_to_delete) <= len(todos)):
+        todos.pop(int(number_to_delete) - 1)
     pass
 
 def save_todos():
     # your code here
+    global todos
+    with open('todos.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        for todo in todos:
+            writer.writerow([todo])
     pass
 
-    
 def load_todos():
     # your code here
+    global todos
+    todos = []
+    with open('todos.csv', 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            todos.append(row[0])
+
     pass
 
 # Below this code will only run if the entry file running was app.py
